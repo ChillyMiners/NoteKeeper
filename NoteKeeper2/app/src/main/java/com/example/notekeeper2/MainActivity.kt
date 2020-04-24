@@ -5,8 +5,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,13 +16,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
-            val originalValue = 1
-            val newValue = 2
-            Snackbar.make(view, "Value $originalValue changed to $newValue",
-                          Snackbar.LENGTH_LONG)
-                .show()
-        }
+
+        //---POPULATING THE SPINNER
+        //create new instance of data manager
+        val dm = DataManager()
+        //create an array adapter for the spinner
+        val adapterCourses = ArrayAdapter<CourseInfo>(this,
+            android.R.layout.simple_spinner_item,
+            dm.courses.values.toList()) //calls the courses toString methods and returns em and
+                                        //casts that return as a list
+        //sets the layout resource to the standard android one for the dropdown
+        adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        //set the spinners array adapter to the one i just made
+        spinnerCourses.adapter = adapterCourses
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
