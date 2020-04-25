@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var notePosition = POSITION_NOT_SET
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,17 +19,29 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //---POPULATING THE SPINNER
-        //create new instance of data manager
-        val dm = DataManager()
         //create an array adapter for the spinner
         val adapterCourses = ArrayAdapter<CourseInfo>(this,
             android.R.layout.simple_spinner_item,
-            dm.courses.values.toList()) //calls the courses toString methods and returns em and
+            DataManager.courses.values.toList()) //calls the courses toString methods and returns em and
                                         //casts that return as a list
         //sets the layout resource to the standard android one for the dropdown
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         //set the spinners array adapter to the one i just made
         spinnerCourses.adapter = adapterCourses
+
+        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+
+        if (notePosition != POSITION_NOT_SET)
+            displayNote()
+    }
+
+    private fun displayNote(){
+        val note = DataManager.notes[notePosition]
+        textNoteTitle.setText(note.title)
+        textNoteText.setText(note.text)
+
+        val coursePosition = DataManager.courses.values.indexOf(note.course)
+        spinnerCourses.setSelection(coursePosition)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

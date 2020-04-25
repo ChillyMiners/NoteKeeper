@@ -1,11 +1,12 @@
 package com.example.notekeeper2
 
-class DataManager {
+object DataManager {
     val courses = HashMap<String, CourseInfo>()
     val notes = ArrayList<NoteInfo>()
 
     init {
         initializeCourses()
+        initializeNotes()
     }
 
     private fun initializeCourses(){
@@ -20,5 +21,19 @@ class DataManager {
 
         course = CourseInfo("java_core", "Java Fundamentals: The Core Platform")
         courses.set(course.courseId, course)
+    }
+
+    private fun initializeNotes(){
+        notes.add(NoteInfo(courses.get("java_core")!!,
+            "This is the title", "This is the text"))
+
+        notes.add(NoteInfo(courses.get("java_lang")!!,
+            "Que?", "No me habla ingles"))
+
+        notes.add(NoteInfo(courses.get("android_intents")!!,
+            "Bollocks", "Still don't get why these are a thing tbh"))
+
+        notes.add(NoteInfo(courses.get("android_async")!!,
+            "Yoo Wot", "Ain't even touched on this'n yet"))
     }
 }
