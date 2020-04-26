@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         //create an array adapter for the spinner
         val adapterCourses = ArrayAdapter<CourseInfo>(this,
             android.R.layout.simple_spinner_item,
-            DataManager.courses.values.toList()) //calls the courses toString methods and returns em and
-                                        //casts that return as a list
+            DataManager.courses.values.toList()) //calls the courses toString methods, returns em
+                                                 // and  casts that return as a list
         //sets the layout resource to the standard android one for the dropdown
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         //set the spinners array adapter to the one i just made
