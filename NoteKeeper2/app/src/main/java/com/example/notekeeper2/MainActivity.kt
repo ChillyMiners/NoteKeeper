@@ -67,5 +67,20 @@ class MainActivity : AppCompatActivity() {
     private fun moveNext() {
         ++notePosition
         displayNote()
+        invalidateOptionsMenu()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        //if its on the last note change the icon to a blocker one, plenty of null safety gwarning
+        if (notePosition >= DataManager.notes.lastIndex){
+            val menuItem = menu?.findItem(R.id.action_next)
+            if (menuItem != null){
+                menuItem.icon = getDrawable(R.drawable.ic_block_white_24dp)
+                menuItem.isEnabled = false
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu)
     }
 }
