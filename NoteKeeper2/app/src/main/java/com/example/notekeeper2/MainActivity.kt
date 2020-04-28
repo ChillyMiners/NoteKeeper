@@ -18,15 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        //---POPULATING THE SPINNER
-        //create an array adapter for the spinner
+        //populating the spinner
         val adapterCourses = ArrayAdapter<CourseInfo>(this,
             android.R.layout.simple_spinner_item,
-            DataManager.courses.values.toList()) //calls the courses toString methods, returns em
-                                                 // and  casts that return as a list
-        //sets the layout resource to the standard android one for the dropdown
+            DataManager.courses.values.toList())
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        //set the spinners array adapter to the one i just made
         spinnerCourses.adapter = adapterCourses
 
         notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
